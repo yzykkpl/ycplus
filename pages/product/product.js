@@ -20,6 +20,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中^_^',
+    })
     var that=this;
     var id =options.id
     that.setData({
@@ -52,6 +55,7 @@ Page({
     that.setData({
       countsArray: countsArray
     })
+    wx.hideLoading()
   },
   //picker监听
   bindPickerChange: function (event) {

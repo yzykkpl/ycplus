@@ -47,10 +47,11 @@
               <view>{{item.totalAccount}}件商品</view>
             </view>
             <view class="item-right">
-              <text class="order-status-txt unpay" wx:if="{{item.payStatus==0&&item.orderStatus!=2}}">待付款</text>
+              <text class="order-status-txt unpay" wx:if="{{item.payStatus==0&&item.orderStatus==0}}">待付款</text>
               <text class="order-status-txt payed" wx:if="{{item.payStatus==1}}">已付款</text>
               <text class="order-status-txt done" wx:if="{{item.payStatus==2}}">已退款</text>
               <text class="order-status-txt done" wx:if="{{item.orderStatus==2&&item.payStatus==0}}">已取消</text>
+              <text class="order-status-txt done" wx:if="{{item.orderStatus==1}}">已完结</text>
             </view>
           </view>
           <view class="order-bottom" wx:if="{{item.payStatus==0}}">

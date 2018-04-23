@@ -33,7 +33,8 @@ Page({
       this.setData({
         productsArr: cart.getCartDataFromLocal(true),
         account: options.account,
-        orderStatus: 0
+        orderStatus: 0,
+        payStatus:0
       });
     }
 
@@ -72,9 +73,16 @@ Page({
 
   /*下单和付款*/
   pay: function () {
-
+    if(!app.data.onPay){
+      this.showTips('太晚啦', '本店已经打烊');
+      return;
+    }
     if (!this.data.addressInfo) {
       this.showTips('下单提示', '请填写您的收货地址');
+      return;
+    }
+    if(app.data.allow == false){
+      this.showTips('太远啦', '您的位置超出配送范围')
       return;
     }
     if (this.data.orderStatus == 0) {
@@ -184,7 +192,7 @@ Page({
        */
   _execPay: function (orderId) {
     if (!order.onPay) {
-      this.showTips('支付提示', '本产品仅用于演示，支付系统已屏蔽', true);//屏蔽支付，提示
+      this.showTips('打烊啦', '现在已经不配送啦', true);//屏蔽支付，提示
       this.deleteProducts(); //将已经下单的商品从购物车删除
       return;
     }
@@ -229,6 +237,7 @@ Page({
         var date = new Date(data.data.createTime*1000)
          that.setData({
            payStatus: data.data.payStatus,
+           orderStatus:data.data.orderStatus,
            productsArr: data.data.orderDetailList,
            account: data.data.orderAmount,
            basicInfo: {

@@ -18,6 +18,7 @@ Page({
   onLoad: function (options) {
     wx.showLoading({
       title: '加载中^_^',
+      mask:true
     })
     this._loadData()
   },
@@ -48,7 +49,7 @@ Page({
     that.setData({
       newProduct: newProduct
     })
-    wx.hideLoading()
+       wx.hideLoading()
   },
 
   onProductsItemTap:function(event){

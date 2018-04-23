@@ -1,12 +1,13 @@
 import { Token } from 'utils/token.js';
-import { Products } from 'utils/products.js';
+import { Products } from 'utils/products.js'; 
 var products=new Products();
 var token = new Token();
 App({
 
   data: {
     product:null,
-    allProduct:null
+    allProduct:null,
+    allow:true
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
@@ -66,6 +67,7 @@ App({
   },
 
   _verifyLocation: function () {
+    var that=this;
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userLocation']) {
@@ -85,7 +87,17 @@ App({
             type: 'wgs84',
             success: function (res) {
               wx.setStorageSync('userLocation', res)
-
+              var dis=that._getDisance(res.latitude, res.longitude, 25.816400, 98.856000)
+              if(dis>5000){
+                that.data.allow=false;
+                wx.showModal({
+                  title: '太远啦',
+                  content: '您的位置超出服务范围',
+                  showCancel:false,
+                  success: function (res) {
+                  }
+                })
+              }else {that.data.allow=true}
             }
           })
         }
@@ -93,12 +105,38 @@ App({
       }
     })
   },
+
+    _getRad:function (d) { return d * Math.PI / 180; },
+    _getDisance:function (lat1, lng1, lat2, lng2) {
+      var EARTH_RADIUS = 6378137.0; 
+      var radLat1 = this._getRad(lat1);
+      var radLat2 = this._getRad(lat2);
+
+      var a = radLat1 - radLat2;
+      var b = this._getRad(lng1) - this. _getRad(lng2);
+
+      var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+      s = s * EARTH_RADIUS;
+      s = Math.round(s * 10000) / 10000.0;
+      return s;
+    },
+  
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
   onShow: function (options) {
+    var that=this;
     token.verify()
     products.getProducts()
+    var options = {
+      url: 'pay/isOnPay',
+      method: 'GET',
+      sCallBack: function (res) {
+        that.data.onPay=res.data.isOnPay;
+        console.log(that.data.onPay)
+      }
+    }
+    products.request(options)
   },
 
   /**
