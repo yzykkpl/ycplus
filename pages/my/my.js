@@ -204,6 +204,7 @@ Page({
           that.setData({
             orderArr: that.data.orderArr
           });
+          that.onPullDownRefresh()
       } else {
         that.showTips('错误','取消失败');
       }
