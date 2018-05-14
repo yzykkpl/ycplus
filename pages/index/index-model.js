@@ -5,7 +5,7 @@ class Home extends Base {
   constructor() {
     super()
   }
-  getBannerData(callBack) {
+  getProduct(callBack) {
     var options = {
       url: 'buyer/product/list',
       method: 'GET',

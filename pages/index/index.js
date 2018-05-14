@@ -16,15 +16,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中^_^',
-      mask:true
-    })
+   
     this._loadData()
   },
 
   _loadData(){
-    home.getBannerData(this.productCB)
+    home.getProduct(this.productCB)
   },
 
   //回调筛选商品
@@ -36,15 +33,22 @@ Page({
     // that.setData({
     //   product:res.data
     // })
-    res.data.forEach(function (val) {
-      if (val.type == 3) {
+    var bannerCount=0;
+    for(var i =0;i<res.data.length;i++){
+
+      if (res.data[i].type == 3) {
         that.setData({
-          bannerProduct: val.foods
+          bannerProduct: res.data[i].foods
         })
+        bannerCount = res.data[i].foods.length
       }
-    })
-    for(var i=0;i<Math.min(6,all.length);i++){
-      newProduct.push(all[i])
+    }
+    var count = Math.min(6, all.length - bannerCount);
+    for (var i = 0; i < all.length;i++){
+      if(all[i].type!=3){
+        newProduct.push(all[i])
+      }
+      if(newProduct.length>=count) break;
     }
     that.setData({
       newProduct: newProduct
@@ -70,7 +74,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this._loadData()
+    //this._loadData()
     //console.log(wx.getStorageSync('allProduct'))
   },
 

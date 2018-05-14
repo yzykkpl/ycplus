@@ -17,54 +17,54 @@ App({
 
   },
   //获取userInfo授权
-  verifyAuthorize: function (callBack) {
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          wx.authorize({
-            scope: 'scope.userInfo',
-            success() {
-              wx.getUserInfo({
-                success: function (res) {
-                  var userInfo = res.userInfo
-                  callBack && callBack(userInfo)
-                  wx.setStorageSync('userInfo', userInfo)
-                  token.verify()
-                },
-                fail:function(res){
-                  callBack && callBack({
-                    avatarUrl: '../../images/icon/user@default.png',
-                    nickName: '匿名'
-                  })
+  // verifyAuthorize: function (callBack) {
+  //   wx.getSetting({
+  //     success(res) {
+  //       if (!res.authSetting['scope.userInfo']) {
+  //         wx.authorize({
+  //           scope: 'scope.userInfo',
+  //           success() {
+  //             wx.getUserInfo({
+  //               success: function (res) {
+  //                 var userInfo = res.userInfo
+  //                 callBack && callBack(userInfo)
+  //                 wx.setStorageSync('userInfo', userInfo)
+  //                 token.verify()
+  //               },
+  //               fail:function(res){
+  //                 callBack && callBack({
+  //                   avatarUrl: '../../images/icon/user@default.png',
+  //                   nickName: '匿名'
+  //                 })
 
-                }
+  //               }
           
 
-              })
-            }
-          })
-        } else {
-          wx.getUserInfo({
-            success: function (res) {
-              var userInfo = res.userInfo
-              callBack && callBack(userInfo)
-              var userInfo = res.userInfo
-              wx.setStorageSync('userInfo', userInfo)
-              token.verify()
-            },
-            fail: function (res) {
-              callBack && callBack({
-                avatarUrl: '../../images/icon/user@default.png',
-                nickName: '匿名'
-              })
+  //             })
+  //           }
+  //         })
+  //       } else {
+  //         wx.getUserInfo({
+  //           success: function (res) {
+  //             var userInfo = res.userInfo
+  //             callBack && callBack(userInfo)
+  //             var userInfo = res.userInfo
+  //             wx.setStorageSync('userInfo', userInfo)
+  //             token.verify()
+  //           },
+  //           fail: function (res) {
+  //             callBack && callBack({
+  //               avatarUrl: '../../images/icon/user@default.png',
+  //               nickName: '匿名'
+  //             })
 
-            }
-          })
-        }
+  //           }
+  //         })
+  //       }
 
-      }
-    })
-  },
+  //     }
+  //   })
+  // },
 
   _verifyLocation: function () {
     var that=this;
@@ -133,7 +133,7 @@ App({
       method: 'GET',
       sCallBack: function (res) {
         that.data.onPay=res.data.isOnPay;
-        console.log(that.data.onPay)
+        //console.log(that.data.onPay)
       }
     }
     products.request(options)

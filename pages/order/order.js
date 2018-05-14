@@ -81,10 +81,10 @@ Page({
       this.showTips('下单提示', '请填写您的收货地址');
       return;
     }
-    if(app.data.allow == false){
-      this.showTips('太远啦', '您的位置超出配送范围')
-      return;
-    }
+    // if(app.data.allow == false){
+    //   this.showTips('太远啦', '您的位置超出配送范围')
+    //   return;
+    // }
     if (this.data.orderStatus == 0) {
       this._firstTimePay();
     } else {

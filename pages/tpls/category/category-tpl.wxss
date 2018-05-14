@@ -1,6 +1,7 @@
 .category-detail-box{
     overflow: hidden;
     padding: 20px;
+
 }
 .category-header{
     height: 200rpx;
@@ -34,9 +35,12 @@
 .category-main{
     display: flex;
     flex-wrap: wrap;
+   
 }
 .category-goods-items{
+    display: inline-block;
     width: 30%;
+
     margin-bottom: 20rpx;
     text-align: center;
 }
@@ -51,5 +55,7 @@
 .category-goods-items view {
     color:#444452;
     font-size: 24rpx;
+
+
 
 }

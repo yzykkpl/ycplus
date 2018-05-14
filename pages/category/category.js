@@ -8,7 +8,7 @@ Page({
    */
   data: {
     loadingHidden: false,
-    transClassArr: ['tanslate0', 'tanslate1', 'tanslate2', 'tanslate3', 'tanslate4', 'tanslate5'],
+    transClassArr: ['tanslate0', 'tanslate1', 'tanslate2', 'tanslate3', 'tanslate4', 'tanslate5', 'tanslate6', 'tanslate7', 'tanslate8', 'tanslate9', 'tanslate10'],
     product:[],
     currentMenuIndex:0
   },

@@ -8,6 +8,7 @@ class Products extends Base {
     var cart = wx.getStorageSync('cart')
     var userLocation = wx.getStorageSync('userLocation')
     var address= wx.getStorageSync('address')
+    var userInfo = wx.getStorageSync('userInfo')
     wx.clearStorageSync();
     wx.setStorageSync('cart', cart)
     wx.setStorage({
@@ -17,6 +18,10 @@ class Products extends Base {
     wx.setStorage({
       key: 'userLocation',
       data: userLocation,
+    })
+    wx.setStorage({
+      key: 'userInfo',
+      data: userInfo,
     })
     wx.setStorage({
       key: 'address',

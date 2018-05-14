@@ -128,5 +128,12 @@ Page({
       url: '/pages/cart/cart'
     });
   },
+  previewImage: function () {
+    wx.previewImage({
+      current: this.data.product.image,
+      urls: [this.data.product.image]
+
+    })
+  },
 
 })

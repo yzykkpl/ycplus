@@ -45,7 +45,7 @@
   <view class='line'></view>
   <view class='product-detail-box'>
     <view class="product-detail-imgs">
-     <image src="{{product.image}}" mode="widthFix"></image>
+     <image src="{{product.image}}" mode="widthFix" bindtap='previewImage' ></image>
     </view>
   </view>
 

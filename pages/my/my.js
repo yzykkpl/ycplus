@@ -6,8 +6,8 @@ import { Token } from '../../utils/token.js';
 var address = new Address();
 var order = new Order();
 var my = new My();
-var token=new Token();
-var app=getApp()
+var token = new Token();
+var app = getApp()
 
 Page({
   data: {
@@ -32,13 +32,17 @@ Page({
 
   _loadData: function () {
     var that = this;
-    //拿到用户信息
-    app.verifyAuthorize((data) => {
-      that.setData({
-        userInfo: data
-      });
-
+    var userInfo = wx.getStorageSync("userInfo")
+    that.setData({
+      userInfo: userInfo
     });
+    //拿到用户信息
+    // app.verifyAuthorize((data) => {
+    //   that.setData({
+    //     userInfo: data
+    //   });
+
+    // });
 
     this._getOrders();
     order.execSetStorageSync(false);  //更新标志位
@@ -47,8 +51,8 @@ Page({
   /**地址信息**/
   _getAddressInfo: function () {
     var that = this;
-    var addressInfo=wx.getStorageSync('address')
-     that._bindAddressInfo(addressInfo);
+    var addressInfo = wx.getStorageSync('address')
+    that._bindAddressInfo(addressInfo);
   },
 
   /*修改或者添加地址信息*/
@@ -84,19 +88,19 @@ Page({
   /*订单信息*/
   _getOrders: function (callback) {
     var that = this;
-    var token=wx.getStorageSync('token')
-    if(!token){
-      showTips('错误','登录信息过期,请重试')
+    var token = wx.getStorageSync('token')
+    if (!token) {
+      showTips('错误', '登录信息过期,请重试')
       token.verify()
       return;
     }
-    order.getOrders(this.data.pageIndex-1,token, (res) => {
-       var data = res.data;
-       that.setData({
+    order.getOrders(this.data.pageIndex - 1, token, (res) => {
+      var data = res.data;
+      that.setData({
         loadingHidden: true
       });
       if (data.length > 0) {
-        that.data.orderArr.push.apply(that.data.orderArr,data);  //数组合并
+        that.data.orderArr.push.apply(that.data.orderArr, data);  //数组合并
         that.setData({
           orderArr: that.data.orderArr
         });
@@ -193,21 +197,21 @@ Page({
   },
 
   //取消订单
-  _cancel: function (event){
+  _cancel: function (event) {
     var that = this;
     var id = order.getDataSet(event, 'id'),
-        index = order.getDataSet(event, 'index');
+      index = order.getDataSet(event, 'index');
     order.cancel(id, (data) => {
       if (data.code == 0) {
-          that.data.orderArr[index].payStatus = -1;
-          that.data.orderArr[index].orderStatus = 2;
-          that.setData({
-            orderArr: that.data.orderArr
-          });
-          that.onPullDownRefresh()
+        that.data.orderArr[index].payStatus = -1;
+        that.data.orderArr[index].orderStatus = 2;
+        that.setData({
+          orderArr: that.data.orderArr
+        });
+        that.onPullDownRefresh()
       } else {
-        that.showTips('错误','取消失败');
+        that.showTips('错误', '取消失败');
       }
     });
-    }
+  }
 })

@@ -6,13 +6,15 @@
     <view class="category-title">
       <text>{{categoryInfo.name}}</text>
     </view>
-    <view class="category-main">
-      <block wx:for="{{categoryInfo.foods}}">
-        <view class="category-goods-items {{index%3==1?'middle':''}}" data-id="{{item.id}}" bindtap="onProductsItemTap">
-          <image src="{{item.icon}}" mode="aspectFill"></image>
-          <view>{{item.name}}</view>
-        </view>
-      </block>
-    </view>
+    <scroll-view scroll-y='true' style='height:790rpx'>
+      <view class="category-main">
+        <block wx:for="{{categoryInfo.foods}}">
+          <view class="category-goods-items {{index%3==1?'middle':''}}" data-id="{{item.id}}" bindtap="onProductsItemTap">
+            <image src="{{item.icon}}" mode="aspectFit"></image>
+            <view>{{item.name}}</view>
+          </view>
+        </block>
+      </view>
+    </scroll-view>
   </view>
 </template>
