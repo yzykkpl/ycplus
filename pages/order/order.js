@@ -85,7 +85,12 @@ Page({
     //   this.showTips('太远啦', '您的位置超出配送范围')
     //   return;
     // }
+    wx.showLoading({
+      title: '加载中^_^',
+      mask: true
+    })
     if (this.data.orderStatus == 0) {
+
       this._firstTimePay();
     } else {
       this._oneMoresTimePay();
@@ -191,6 +196,7 @@ Page({
        * id - {int}订单id
        */
   _execPay: function (orderId) {
+    
     if (!order.onPay) {
       this.showTips('打烊啦', '现在已经不配送啦', true);//屏蔽支付，提示
       this.deleteProducts(); //将已经下单的商品从购物车删除
@@ -228,6 +234,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log("order show")
    
     if (this.data.orderId) {
       var that = this;
@@ -253,7 +260,8 @@ Page({
          });
       });
     }else{
-      this._bindAddressInfo(wx.getStorageSync(this.data._storageKeyName))
+      //this._bindAddressInfo(wx.getStorageSync("address"))
+      console.log(wx.getStorageSync(this.data._storageKeyName))
     }
     
   },

@@ -4,7 +4,7 @@
   <swiper indicator-dots="true" autoplay="true" class="swiper">
     <block wx:for="{{bannerProduct}}" wx:key="id">
       <swiper-item class="banner-item" data-id="{{item.description}}" bindtap="onProductsItemTap">
-        <image mode="aspectFit" class="item-image" src="{{item.icon}} "></image>
+        <image mode="aspectFill" class="item-image" src="{{item.icon}} "></image>
       </swiper-item>
     </block>
   </swiper>

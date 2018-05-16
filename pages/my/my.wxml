@@ -40,7 +40,7 @@
           </view>
           <view class="order-main" ontap="showOrderDetailInfo" data-id="{{item.orderId}}">
             <view class="item-left">
-              <image src="{{item.snapIcon}}"></image>
+              <image src="{{item.snapIcon}}" mode='aspectFit'></image>
             </view>
             <view class="item-middle">
               <view>{{item.snapName}}</view>

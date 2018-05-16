@@ -10,7 +10,7 @@
       </view>
       <view class="bd">
         <view class="confirm-btn">
-          <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">进入店铺</button>
+          <button open-type="getUserInfo" style="background:#AB956D;border-radius: 100rpx;" bindgetuserinfo="getUserInfo">进入店铺</button>
         </view>
         <view class='location'>
         <image bindtap='map' src='../../images/location.png' style='width:100rpx;height:100rpx'></image>

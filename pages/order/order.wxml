@@ -54,7 +54,7 @@
     <block wx:for="{{productsArr}}">
       <view class="product-item">
         <view class="item-left">
-          <image src="{{item.icon||item.productIcon}}"></image>
+          <image src="{{item.icon||item.productIcon}}" mode='aspectFit'></image>
         </view>
         <view class="item-middle">
           <view>{{item.name||item.productName}}</view>

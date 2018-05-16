@@ -1,5 +1,5 @@
 const CONF = {
-  baseUrl:'http://weapp.free.ngrok.cc/sell/',
+  baseUrl:'https://www.yzykkpl.cn/sell/',
   onPay:true
 }
 

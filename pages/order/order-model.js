@@ -49,6 +49,7 @@ class Order extends Base {
         var result = data.data
         var timeStamp = result.timeStamp;
         if (timeStamp) { //可以支付
+          wx.hideLoading();
           wx.requestPayment({
             'timeStamp': timeStamp.toString(),
             'nonceStr': result.nonceStr,
@@ -63,6 +64,7 @@ class Order extends Base {
             }
           });
         } else {
+          wx.hideLoading();
           callback && callback(0);
         }
       }
