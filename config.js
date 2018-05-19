@@ -1,5 +1,5 @@
 const CONF = {
-  baseUrl:'https://www.yzykkpl.cn/sell/',
+  baseUrl:'http://localhost/sell/',
   onPay:true
 }
 

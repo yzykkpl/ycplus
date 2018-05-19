@@ -213,5 +213,15 @@ Page({
         that.showTips('错误', '取消失败');
       }
     });
+  },
+  //拨打客服电话
+  makePhoneCall:function(){
+    var that=this
+    wx.makePhoneCall({
+      phoneNumber: '13988675253',
+      fail:function(){
+        that.showTips("客服电话","13988675253")
+      }
+    })
   }
 })

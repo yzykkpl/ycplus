@@ -3,12 +3,24 @@
 .my-container{
     background-color:#EDEDED;
 }
+.header{
+  display: flex;
+
+}
 .my-header{
     background-color: #AB956D;
     color: #fff;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 30rpx;
+    font-size: 28rpx;
+}
+.my-inf{
+    background-color: #AB956D;
+    color: #fff;
+    display: flex;
+    align-items: center;
     font-size: 28rpx;
 }
 .my-header image{

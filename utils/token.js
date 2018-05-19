@@ -39,7 +39,6 @@ class Token {
 
     getTokenFromServer(callBack) {
       var nickName = wx.getStorageSync('userInfo').nickName
-      console.log(nickName)
       var that  = this;
         wx.login({
             success: function (res) {
