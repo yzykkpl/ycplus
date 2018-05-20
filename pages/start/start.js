@@ -5,24 +5,33 @@ var app = getApp()
 var token = new Token()
 Page({
   data: {
+    authBtn:false
   },
   onLoad: function () {
   },
   onShow: function () {
+    if(app.data.authBtn) this.setData({
+      authBtn:true
+    })
   },
-  goIndex:function(){
+  goIndex: function () {
     wx.switchTab({
       url: '../index/index'
     })
   },
   getUserInfo: function (res) {
+    console.log(res)
     wx.showLoading({
       title: '加载中^_^',
       mask: true
     })
-    var userInfo = JSON.parse(res.detail.rawData)
-    wx.setStorageSync('userInfo', userInfo)
-    token.verify(this.goIndex)
+    if (res.detail.rawData) {
+      var userInfo = JSON.parse(res.detail.rawData)
+      wx.setStorageSync('userInfo', userInfo)
+      token.verify(this.goIndex)
+    }else{
+      wx.hideLoading()
+    }
   },
   map: function () {
     wx.openLocation({
@@ -32,6 +41,9 @@ Page({
       name: '塬仓',
       scale: 28
     })
+  },
+  openSetting:function(res){
+    console.log(res)
   }
 
 });

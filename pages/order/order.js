@@ -60,6 +60,18 @@ Page({
 
         //保存地址
         wx.setStorageSync(that.data._storageKeyName, addressInfo)
+      },
+      fail: function () {
+        wx.getSetting({
+          success: function (res) {
+            if (!res.authSetting['scope.address']) {
+              wx.showModal({
+                title: '您已拒绝地址授权',
+                content: '请点击右上角"..."->"关于"->右上角"..."->"设置"进行授权',
+              })
+            }
+          }
+        })
       }
     })
   },
@@ -81,10 +93,10 @@ Page({
       this.showTips('下单提示', '请填写您的收货地址');
       return;
     }
-    // if(app.data.allow == false){
-    //   this.showTips('太远啦', '您的位置超出配送范围')
-    //   return;
-    // }
+    if(app.data.allow == false){
+      this.showTips('太远啦', '您的位置超出配送范围')
+      return;
+    }
     wx.showLoading({
       title: '加载中^_^',
       mask: true

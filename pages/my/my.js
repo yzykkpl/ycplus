@@ -74,6 +74,18 @@ Page({
         else {
           that.showTips('操作提示', '地址信息更新失败,手机号码信息为空！');
         }
+      },
+      fail:function(){
+        wx.getSetting({
+          success:function(res){
+            if (!res.authSetting['scope.address']){
+              wx.showModal({
+                title: '您已拒绝地址授权',
+                content: '请点击右上角"..."->"关于"->右上角"..."->"设置"进行授权',
+              })
+            }
+          }
+        })
       }
     })
   },

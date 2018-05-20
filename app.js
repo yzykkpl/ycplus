@@ -7,7 +7,8 @@ App({
   data: {
     product:null,
     allProduct:null,
-    allow:true
+    allow:true,
+    authBtn:false
   },
   /**
    * 当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
@@ -80,7 +81,15 @@ App({
                   wx.setStorageSync('userLocation', res)
                 }
               })
+            },
+            fail:function(){
+              wx.showModal({
+                title: '您已拒绝位置信息授权',
+                content: '请点击右上角"..."->"关于"->右上角"..."->"设置"进行授权',
+              })
+              that.data.allow = false
             }
+            
           })
         } else {
           wx.getLocation({

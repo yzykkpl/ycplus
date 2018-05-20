@@ -1,10 +1,10 @@
 <!--start.wxml-->
 <view class="container">
-    <image class="title" src="https://yuancang-1256086874.cos.ap-chengdu.myqcloud.com/yc/images/logo2.png"></image>
+    <image class="title" src="../../images/homewords.jpg"></image>
     <view class="content">
       <view class="hd" style="transform:rotateZ({{angle}}deg);">
 
-        <image class="logo" src="https://yuancang-1256086874.cos.ap-chengdu.myqcloud.com/yc/images/logo.png"></image>
+        <image class="logo" src="../../images/logo.png"></image>
         <image class="wave" src="https://yuancang-1256086874.cos.ap-chengdu.myqcloud.com/yc/images/more/wave.png" mode="aspectFill"></image>
         <image class="wave wave-bg" src="https://yuancang-1256086874.cos.ap-chengdu.myqcloud.com/yc/images/more/wave.png" mode="aspectFill"></image>
       </view>
