@@ -101,8 +101,8 @@ Page({
   _getOrders: function (callback) {
     var that = this;
     var token = wx.getStorageSync('token')
-    if (!token) {
-      showTips('错误', '登录信息过期,请重试')
+    if (token==""||token==null) {
+      this.showTips('错误', '登录信息过期,请重试')
       token.verify()
       return;
     }

@@ -113,7 +113,7 @@ Page({
   _firstTimePay: function () {
     var userToken = wx.getStorageSync('token');
     var orderForm = {};
-    if (userToken == null) {
+    if (userToken == null || userToken == "") {
       token.verify();
       showTips("错误", "验证失败，请稍后重试", false);
       return

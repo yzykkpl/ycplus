@@ -44,6 +44,7 @@ class Products extends Base {
   }
 
    saveProductByCategory(all) {
+    console.log("all",all)
     wx.setStorageSync('product', all)
   }
 

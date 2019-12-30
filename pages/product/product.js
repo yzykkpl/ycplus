@@ -1,17 +1,22 @@
 // pages/product/product.js
-import {Cart} from '../cart/cart-model.js'
-var cart=new Cart()
+import { Cart } from '../cart/cart-model.js'
+import { Products } from '../../utils/products.js';
+import { Token } from '../../utils/token.js';
+var products = new Products();
+var cart = new Cart()
+var token = new Token()
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    maxCounts:0,
+    maxCounts: 0,
     product: {},
     countsArray: [],
     productCounts: 1,
-    tabs:['商品详情'],
+    tabs: ['商品详情'],
     cartTotalCounts: 0,
     hiddenSmallImg: true
   },
@@ -20,20 +25,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     wx.showLoading({
       title: '加载中^_^',
     })
-    var that=this;
-    var id =options.id
-    that.setData({
-      product: wx.getStorageSync(id),
-      cartTotalCounts: cart.getCartTotalCounts(),
-    })
-    that._updateCounts()
+    var that = this;
+    var id = options.id
+    if (wx.getStorageSync(id) == "" || wx.getStorageSync(id) == null) {
+      that.reload()
+      products.getProducts(() => {
+        that.setData({
+          product: wx.getStorageSync(id),
+          cartTotalCounts: cart.getCartTotalCounts(),
+        })
+        that._updateCounts()
+      })
+    }
+    else {
+      that.setData({
+        product: wx.getStorageSync(id),
+        cartTotalCounts: cart.getCartTotalCounts(),
+      })
+      that._updateCounts()
+    }
 
   },
-  _updateCounts:function(){
-    var that=this
+  _updateCounts: function () {
+    var that = this
     var cartData = cart.getCartDataFromLocal();//拿到购物车中的数据
     that.setData({
       maxCounts: that.data.product.stock
@@ -43,7 +61,7 @@ Page({
         that.setData({
           maxCounts: that.data.product.stock - cartData[i].counts
         })
-      
+
         break;
       }
     }
@@ -66,8 +84,8 @@ Page({
     })
   },
   //购物车监听
-  onAddToCart:function(event){
-    
+  onAddToCart: function (event) {
+
     this.addToCart();
     //var counts = this.data.cartTotalCounts + this.data.productCounts;
     // this.setData({
@@ -77,14 +95,14 @@ Page({
       return;
     }
     this._flyToCartEffect(event);
-    
+
   },
 
-  addToCart:function(){
-    var that=this;
-    var tempObj={};
-    var keys=['id','name','icon','price','stock','image']
-    keys.forEach(function(key){
+  addToCart: function () {
+    var that = this;
+    var tempObj = {};
+    var keys = ['id', 'name', 'icon', 'price', 'stock', 'image']
+    keys.forEach(function (key) {
       tempObj[key] = that.data.product[key]
     })
     cart.add(tempObj, that.data.productCounts)
@@ -133,6 +151,27 @@ Page({
       current: this.data.product.image,
       urls: [this.data.product.image]
 
+    })
+  },
+  // 直接通过小程序页面码跳转而来
+  reload: function () {
+    app._verifyLocation()
+    this._getUserInfo()
+    token.verify()
+  },
+  _getUserInfo: function () {
+    wx.getUserInfo({
+      success: function (res) {
+        var userInfo = res.userInfo
+        wx.setStorageSync('userInfo', userInfo)
+      },
+      fail: function (res) {
+        var userInfo = {
+          avatarUrl: '../../images/icon/user@default.png',
+          nickName: '匿名'
+        }
+        wx.setStorageSync('userInfo', userInfo)
+      }
     })
   },
 
